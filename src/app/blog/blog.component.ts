@@ -10,9 +10,7 @@ import { SharedService } from '../shared.service';
 export class BlogComponent implements OnInit {
   blogData:any;
   isDarkEnable = false;
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private sharedService: SharedService){
-    this.route.snapshot.data;
-    console.log(this.route.snapshot)
+  constructor(private httpClient: HttpClient, private sharedService: SharedService){
   }
   ngOnInit(): void {
     this.httpClient.get("../../assets/data/data.json").subscribe(
@@ -21,14 +19,9 @@ export class BlogComponent implements OnInit {
       }
     )
     this.isDarkEnable = this.sharedService.togleState;
-    console.log('dataaa23',this.isDarkEnable);
-    console.log('dataaa2',this.sharedService.darkModeStatus$);
     this.sharedService.darkModeStatus$.subscribe((value)=>{
-      console.log('dataaa',value)
       if(value){
         this.isDarkEnable = value;
-      }else{
-        this.isDarkEnable = this.sharedService.togleState;
       }
     })
     
