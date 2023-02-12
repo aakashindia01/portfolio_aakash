@@ -1,0 +1,22 @@
+<div class="w-full p-4">
+<h4 class=" text-center font-extrabold text-3xl">Brainstorm Blog</h4>
+<p class="text-base px-40 text-center text-gray-500 sm:text-lg dark:text-gray-400">A platform for creative exploration, where thought-provoking ideas and unique perspectives are shared to inspire change and expand horizons through writing.</p>
+
+<div class="inline-flex flex-row">
+<ng-container *ngFor="let item of blogData">
+<app-blog-card class="p-4 m-2" [isDarkEnable]="isDarkEnable">
+    <mat-card-header class="blog-header">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{item.title}}</mat-card-title>
+    </mat-card-header>
+    <div class="blog-body">
+        <img mat-card-image [src]="item.path" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <p>{{item.intro}}</p>
+        </mat-card-content>
+    </div>
+</app-blog-card>
+</ng-container>
+</div>
+</div>
+
