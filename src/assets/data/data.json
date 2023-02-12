@@ -1,5 +1,6 @@
 [
     {
+        "id":1,
         "title": "Exploring the Capabilities of ChatGPT",
         "subtitle": "A Deep Dive into the Technology and Applications of OpenAI's Language Model",
         "author": "John Doe",
@@ -9,6 +10,7 @@
         "outro": "Thank you for reading this blog post about ChatGPT. We hope you found it informative and insightful. If you have any questions or would like to learn more about ChatGPT, feel free to reach out to us. Stay tuned for more updates and developments in the field of AI conversational technology."
     },
     {
+        "id":2,
         "title": "The Future is Here: IoT's Impact",
         "subtitle": "An exploration of the advancements in IoT technology and its impact on various industries",
         "author": "John Doe",
@@ -18,6 +20,7 @@
         "intro": "The Internet of Things (IoT) refers to the growing network of physical devices, vehicles, home appliances, and other items that are embedded with electronics, software, sensors, and connectivity which enables these objects to connect and exchange data. IoT is revolutionizing the way we live, work and interact with technology, creating new opportunities for innovation, efficiency and convenience."
     },
     {
+        "id":3,
         "title": "The Future of Work: Navigating Remote and Digital Transformation",
         "subtitle": "Exploring the Impact of Technology on Remote Teams and Business Processes",
         "path":"../../assets/images/blog/wfh.jpg",

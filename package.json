@@ -23,6 +23,7 @@
     "angular-dark-mode": "^3.0.3",
     "angular-particle": "^1.0.4",
     "ng-lottie": "^0.3.2",
+    "ngx-typed-js": "^2.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

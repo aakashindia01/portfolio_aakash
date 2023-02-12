@@ -19,6 +19,9 @@ import { BlogCardComponent } from './common/components/blog-card/blog-card.compo
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './common/components/page-not-found/page-not-found.component';
+import { NgxTypedJsModule } from 'ngx-typed-js';
+import { PostComponent } from './post/post.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { PageNotFoundComponent } from './common/components/page-not-found/page-n
     BlogComponent,
     BlogCardComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PostComponent
     ],
   imports: [
     BrowserModule,
@@ -41,7 +45,9 @@ import { PageNotFoundComponent } from './common/components/page-not-found/page-n
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    HttpClientModule
+    MatDialogModule,
+    HttpClientModule,
+    NgxTypedJsModule
 
   ],
   providers: [
