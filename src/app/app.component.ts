@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SharedService } from './shared.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'portfolio_aakash';
+
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit(): void {
+
+  }
+
+
+  isDark = false;
+  darkModeEnable(event:boolean){
+    this.sharedService.darkModeStatus(event);
+  }
 }
