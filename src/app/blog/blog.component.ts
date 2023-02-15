@@ -20,9 +20,7 @@ export class BlogComponent implements OnInit {
     )
     this.isDarkEnable = this.sharedService.togleState;
     this.sharedService.darkModeStatus$.subscribe((value)=>{
-      if(value){
-        this.isDarkEnable = value;
-      }
+      this.isDarkEnable = value;
     })
     
   }

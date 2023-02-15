@@ -22,6 +22,22 @@ import { PageNotFoundComponent } from './common/components/page-not-found/page-n
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { PostComponent } from './post/post.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import firebase from 'firebase/compat/app';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCh4nTJnD566ezRnemDfdN1DikFm9rxFF8",
+  authDomain: "aakashindia.firebaseapp.com",
+  projectId: "aakashindia",
+  storageBucket: "aakashindia.appspot.com",
+  messagingSenderId: "1083575592229",
+  appId: "1:1083575592229:web:e3d28112dac11859a626cc",
+  measurementId: "G-ENRPHC1HQF"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 
 @NgModule({
   declarations: [

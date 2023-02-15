@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DarkModeService } from 'angular-dark-mode';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ActivatedRoute } from '@angular/router';
+import firebase from 'firebase/compat/app';
+
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   togleState = false;
   activeTab = 'home';
   tooltipCommongSoon = '';
+  show = false;
   @Output() isDarkMode = new EventEmitter<boolean>();
   constructor(private darkModeService: DarkModeService) {}
 
@@ -25,5 +26,14 @@ export class NavbarComponent implements OnInit {
   onToggle(event:MatSlideToggleChange): void {
     this.darkModeService.toggle();
     this.isDarkMode.emit(event.checked);
+  }
+
+  logEvent() {
+    firebase.analytics().logEvent('begin_checkout');
+    firebase.setLogLevel('verbose');
+  }
+
+  showNavData(){
+    this.show = !this.show;
   }
 }

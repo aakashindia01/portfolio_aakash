@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import firebase from 'firebase/compat/app';
 @Component({
   selector: 'app-blog-card',
   templateUrl: './blog-card.component.html',
@@ -8,4 +8,7 @@ import { Component, Input } from '@angular/core';
 export class BlogCardComponent {
   @Input() isDarkEnable = false;
   constructor() {}
+  logEvent() {
+    firebase.analytics().logEvent('screen_view');
+  }
 }

@@ -10,7 +10,7 @@ body.dark-mode {
 }
 
 body.light-mode {
-  background-color: #ffffff;
+  background-color: #f8eeec;
   color: #2d3436;
 }
 
@@ -34,4 +34,7 @@ body:not(.light-mode-preloading) {
 .text-3xl{
   font-size: 1.875rem !important;
   line-height: 2.25rem !important;
+}
+.m-auto {
+  margin: auto !important;
 }

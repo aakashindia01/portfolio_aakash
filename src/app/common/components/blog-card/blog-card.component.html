@@ -1,8 +1,8 @@
-<mat-card class="example-card" [ngClass]="{'dark-mode': isDarkEnable}">
+<mat-card class="w-auto" [ngClass]="{'dark-mode': isDarkEnable}">
     <ng-content select=".blog-header"></ng-content>
     <ng-content select=".blog-body"></ng-content>
     <mat-card-actions>
-        <button routerLink="post"  mat-fab extended color="primary">
+        <button routerLink="post"  mat-fab extended color="primary" (click)="logEvent()">
             Read More
         </button>
     </mat-card-actions>

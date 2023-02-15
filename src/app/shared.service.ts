@@ -10,7 +10,7 @@ export class SharedService {
   darkModeStatus$ = this.messageSource.asObservable();
   constructor() { 
     const value  = localStorage.getItem('dark-mode') as string;
-    this.togleState = JSON.parse(value).darkMode;
+    this.togleState = JSON.parse(value)?.darkMode;
     this.messageSource.next(this.togleState);
   }
   
