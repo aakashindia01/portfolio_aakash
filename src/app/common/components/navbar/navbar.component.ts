@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   togleState = false;
   activeTab = 'home';
   tooltipCommongSoon = '';
+  show = false;
   @Output() isDarkMode = new EventEmitter<boolean>();
   constructor(private darkModeService: DarkModeService) {}
 
@@ -30,5 +31,9 @@ export class NavbarComponent implements OnInit {
   logEvent() {
     firebase.analytics().logEvent('begin_checkout');
     firebase.setLogLevel('verbose');
+  }
+
+  showNavData(){
+    this.show = !this.show;
   }
 }
