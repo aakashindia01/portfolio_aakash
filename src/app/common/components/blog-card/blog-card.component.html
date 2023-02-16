@@ -1,9 +1,14 @@
-<mat-card class="w-auto" [ngClass]="{'dark-mode': isDarkEnable}">
-    <ng-content select=".blog-header"></ng-content>
-    <ng-content select=".blog-body"></ng-content>
-    <mat-card-actions>
-        <button routerLink="post"  mat-fab extended color="primary" (click)="logEvent()">
-            Read More
-        </button>
-    </mat-card-actions>
-</mat-card>
+<div [ngClass]="{'dark-mode': isDarkEnable}" class="h-80 w-72 border-0 rounded-lg bg-white grid grid-rows-1">
+    <a routerLink="/blog/post" class="hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 border-0 rounded-lg">
+        <div class="h-36 flex justify-center items-center">
+            <ng-content select=".img-wrapper"></ng-content>
+        </div>
+        <div class="h-44 flex flex-col px-3 py-4">
+            <div class="overflow-hidden">
+                <ng-content select=".source"></ng-content>
+                <ng-content select=".blog-header"></ng-content>
+                <ng-content select=".excerpt"></ng-content>
+            </div>
+        </div>
+    </a>
+</div>

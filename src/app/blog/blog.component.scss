@@ -1,4 +1,23 @@
-.example-header-image {
-    background-image: url('../../assets/images/blog/avtar.avif');
-    background-size: cover;
+.excerpt {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+    line-height: 20px;
+    margin: 0 !important;
+}
+
+.clamp{
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.title{
+    font-size: 17px !important;
+    -webkit-line-clamp: 3;
+    line-height: 24px !important;
+}
+
+.source{
+    margin: 0 !important;
 }
