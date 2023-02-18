@@ -1,0 +1,75 @@
+<div class="flex flex-col items-center justify-center  p-2 mt-4">
+    <mat-form-field class="w-full md:w-2/3 mt-4">
+        <mat-label>Title of Blog Post</mat-label>
+        <input matInput #message maxlength="256" placeholder="Insert Title Here" required>
+        <mat-hint align="end">{{message.value.length}} / 100</mat-hint>
+    </mat-form-field>
+
+
+    <mat-form-field class="w-full md:w-2/3 mt-4">
+        <mat-label>subtitle</mat-label>
+        <input matInput #message maxlength="256" placeholder="A Brief Description of the Topic">
+        <mat-hint align="end">{{message.value.length}} / 150</mat-hint>
+    </mat-form-field>
+
+    <div class="w-full md:w-2/3 mt-5 flex flex-col md:flex-row justify-between">
+        <div>
+            <mat-form-field class="w-full md:w-80">
+                <mat-label class="text-sm font-semibold">Auther Name</mat-label>
+                <input matInput type="text" [(ngModel)]="name">
+                <button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+
+        <mat-form-field class="w-full md:w-80">
+            <mat-label class="text-sm font-semibold">Created on</mat-label>
+            <input matInput [matDatepicker]="dp" required>
+            <mat-hint>MMMM DD, YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+
+
+    </div>
+
+    <div class="mt-4 w-full md:w-2/3 flex flex-col">
+        <label class="text-sm font-semibold" required>Upload thumbnail</label>
+        <input type="file" accept="image/*" required>
+    </div>
+    <div class="w-full md:w-2/3 flex">
+        <mat-form-field class="mt-4 w-full md:w-80 mr-auto" appearance="fill">
+            <mat-label>Select Blog Catagories</mat-label>
+            <mat-select required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let blog of blogCategories" [value]="blog">
+                    {{blog.key}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="blogCategoriesControl.hasError('required')">Please choose an blog category</mat-error>
+            <mat-hint>{{blogCategoriesControl.value?.value}}</mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="mt-4 w-full md:w-2/3">
+        <div class="flex flex-row">
+            <label class="text-sm font-semibold" required>Content of Post</label>
+            <mat-hint class="ml-auto">char count: {{content.length}} / 5000</mat-hint>
+        </div>
+
+        <ckeditor class="" [(ngModel)]="htmlData" [config]="editorConfig" [readonly]="false" (change)="onChange($event)"
+            (contentDom)="onContentDom($event)" debounce="500">
+        </ckeditor>
+
+    </div>
+
+    <div class="mt-4 flex w-full md:w-2/3">
+        <div class="ml-auto">
+            <button mat-raised-button (click)="openDialog('0ms', '0ms')" color="warn">clear</button>
+            <button mat-raised-button class="ml-5" color="primary">Save</button>
+        </div>
+    </div>
+
+
+</div>

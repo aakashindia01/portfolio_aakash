@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
+
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
 
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DarkModeToggleComponent } from './common/components/dark-mode-toggle/dark-mode-toggle.component';
@@ -15,6 +18,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MatSelectModule} from '@angular/material/select';
+
 import { BlogCardComponent } from './common/components/blog-card/blog-card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +31,8 @@ import { NgxTypedJsModule } from 'ngx-typed-js';
 import { PostComponent } from './post/post.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import firebase from 'firebase/compat/app';
+import { CreatepostComponent } from './createpost/createpost.component';
+import { ConfirmPopupComponent } from './common/components/confirm-popup/confirm-popup.component';
 
 
 const firebaseConfig = {
@@ -50,7 +60,9 @@ firebase.initializeApp(firebaseConfig);
     BlogCardComponent,
     HomeComponent,
     PageNotFoundComponent,
-    PostComponent
+    PostComponent,
+    CreatepostComponent,
+    ConfirmPopupComponent
     ],
   imports: [
     BrowserModule,
@@ -63,11 +75,18 @@ firebase.initializeApp(firebaseConfig);
     MatTooltipModule,
     MatDialogModule,
     HttpClientModule,
-    NgxTypedJsModule
+    NgxTypedJsModule,
+    CKEditorModule,
+    FormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatSelectModule
 
   ],
   providers: [
   ],
+  schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
