@@ -7,11 +7,11 @@
     <div class="grid gap-2 gap-y-4 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  m-auto">
         <ng-container *ngFor="let item of blogData">
             <app-blog-card class="" [postData]="item" [isDarkEnable]="isDarkEnable">
-                <img class="img-wrapper border-0 rounded-t-lg max-h-full w-full" [src]="item.path"
+                <img class="img-wrapper border-0 rounded-t-lg h-full w-full" [src]="item.thumbnail"
                     alt="blog post image">
                 <p class="source text-xs text-gray-400">https://aakashindia.web.app . 6min</p>
                 <header class="dark:text-black hover:text-blue-600 blog-header font-sans title font-semibold">{{item.title}}</header>
-                <p class="excerpt clamp overflow-ellipsis trun">{{item.intro}}</p>
+                <p class="excerpt clamp overflow-ellipsis trun">{{item.subtitle}}</p>
             </app-blog-card>
         </ng-container>
     </div>

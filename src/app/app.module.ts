@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
 
 import { CKEditorModule } from 'ng2-ckeditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DarkModeToggleComponent } from './common/components/dark-mode-toggle/dark-mode-toggle.component';
@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu'
 
 import { BlogCardComponent } from './common/components/blog-card/blog-card.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,7 +31,11 @@ import { PageNotFoundComponent } from './common/components/page-not-found/page-n
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { PostComponent } from './post/post.component';
 import {MatDialogModule} from '@angular/material/dialog';
+
 import firebase from 'firebase/compat/app';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 import { CreatepostComponent } from './createpost/createpost.component';
 import { ConfirmPopupComponent } from './common/components/confirm-popup/confirm-popup.component';
 
@@ -72,6 +77,7 @@ firebase.initializeApp(firebaseConfig);
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     MatTooltipModule,
     MatDialogModule,
     HttpClientModule,
@@ -81,7 +87,10 @@ firebase.initializeApp(firebaseConfig);
     MatInputModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule
 
   ],
   providers: [

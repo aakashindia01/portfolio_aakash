@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm-popup',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class ConfirmPopupComponent {
 
+  constructor(public dialogRef: MatDialogRef<ConfirmPopupComponent>){}
+  onYes(){
+    this.dialogRef.close(true);
+  }
+  onNo(){
+    this.dialogRef.close(false);
+  }
 }

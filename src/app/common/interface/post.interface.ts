@@ -1,11 +1,10 @@
 export interface Post {
-    id: number;
+    _id:string,
     title: string;
     subtitle: string;
-    phone: string;
-    author: string;
-    date_published: string;
-    path: string;
+    auther: string;
+    date: string;
     thumbnail: string;
-    intro: string;
-  }
+    category: string;
+    content: string;
+}

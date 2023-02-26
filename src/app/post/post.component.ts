@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from '../shared.service';
+import { Post } from '../common/interface/post.interface';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -10,15 +11,16 @@ import { SharedService } from '../shared.service';
 })
 export class PostComponent {
 
-  blog1:any;
+  post:Post | null = null;
+  htmlContent:SafeHtml | undefined;
 
-
-  constructor(private httpClient: HttpClient, private sharedService: SharedService, private rout:ActivatedRoute){
+  constructor(private httpClient: HttpClient, private rout:ActivatedRoute, private sanitizer: DomSanitizer){
   }
   ngOnInit(): void {
-    this.httpClient.get("../../assets/data/data.json").subscribe(
+    this.httpClient.get(`https://blogapibackend.netlify.app/posts/${this.rout.snapshot.params['id']}`).subscribe(
       (data: any)=>{
-        this.blog1 = data[0];
+        this.post = data;
+        this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(data?.content);
       }
     )
   }

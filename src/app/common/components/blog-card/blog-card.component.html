@@ -1,5 +1,8 @@
 <div [ngClass]="{'dark-mode': isDarkEnable}" class="h-80 w-72 border-0 rounded-lg bg-white grid grid-rows-1">
-    <a [routerLink]="['/blog/post', postData.id]" class="shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 border-0 rounded-lg">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="ml-auto" aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    <a [routerLink]="['/post', postData?._id]" class="shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 border-0 rounded-lg">
         <div class="h-36 flex justify-center items-center">
             <ng-content select=".img-wrapper"></ng-content>
         </div>
@@ -12,3 +15,22 @@
         </div>
     </a>
 </div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="deletePost(postData?._id || '')">
+      <mat-icon >delete</mat-icon>
+      <span>delete</span>
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>update</mat-icon>
+      <span>update</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/post', postData?._id]">
+        <mat-icon>open_in_browser</mat-icon>
+      <span>read more</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>

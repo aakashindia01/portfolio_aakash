@@ -1,8 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import {FormControl,FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 // Depending on whether rollup is used, moment needs to be imported differently.
 // Since Moment.js doesn't have a default export, we normally need to import using the `* as`
@@ -12,7 +11,12 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment} from 'moment';
 import { ConfirmPopupComponent } from '../common/components/confirm-popup/confirm-popup.component';
-import { CKEditorComponent } from 'ng2-ckeditor';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Renderer2 } from '@angular/core';
+import { forwardRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { UploadService } from '../common/service/upload.service';
+import { BlogCategories,  } from '../common/interface/blogCatagory.interface';
 
 const moment = _rollupMoment || _moment;
 
@@ -45,66 +49,122 @@ export const MY_FORMATS = {
     },
 
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CreatepostComponent),
+      multi: true
+    }
   ],
 })
-export class CreatepostComponent {
-  //@ViewChild('editor') editor: CKEditorComponent;
+export class CreatepostComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private http: HttpClient,
+    private renderer: Renderer2,
+    public dialog: MatDialog,
+    private _uploadService: UploadService
+  ) {}
+  blogCategories:BlogCategories[]= []
   public content = '';
   htmlData: string = '';
   name = '';
+  file:any;
+  percentage = 40;
   public editorConfig = {
     toolbar: [
       { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
-      { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] },
-      { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+      { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+      { name:'insert', items: ['Table']},
       { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
       { name: 'colors', items: ['TextColor', 'BGColor'] },
       { name: 'tools', items: ['Maximize', 'ShowBlocks'] },
     ]
   };
-  
-  date = new FormControl(moment());
+  date = new FormControl(moment().format('MM/DD/YYYY'));
+
+  ngOnInit(): void {
+    this.http.get('https://run.mocky.io/v3/2b0ee768-eb12-4174-a66a-63079a8ccf79').subscribe((blogCategories:any)=>{
+      this.blogCategories = blogCategories;
+    })
+    
+  }
+
+  addScriptToElement(src:any){
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = src;
+    this.renderer.appendChild(document.body, script);
+    return script;
+  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(ConfirmPopupComponent, {
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       width: '350px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.clearCKeditor();
+      }
+    })
+  }
+
+  clearCKeditor(){
+    this.htmlData = ''
   }
 
   onContentDom(event:any){
-    this.content = CKEDITOR.dom.element.createFromHtml(this.htmlData).getText();
+    this.blogFormFroup.get('content')?.setValue(this.htmlData);
+    this.content = event.editor.editable().getText();
   }
 
-  onChange(event:any){
-    this.content = CKEDITOR.dom.element.createFromHtml(this.htmlData).getText();
+  onReady(eventsource:any){
+    eventsource.editor.document.on('keypress', (event:any)=>{
+      this.content = eventsource.editor.editable().getText();
+    })
+  }
+
+  onEditorChange(event:any){
+    this.blogFormFroup.get('content')?.setValue(this.htmlData);
   }
 
   blogCategoriesControl = new FormControl<any | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  blogCategories = [
-    { key: 'Personal Development', value: 'personal-development' },
-    { key: 'Health and Wellness', value: 'health-and-wellness' },
-    { key: 'Food and Cooking', value: 'food-and-cooking' },
-    { key: 'Travel and Adventure', value: 'travel-and-adventure' },
-    { key: 'Fashion and Beauty', value: 'fashion-and-beauty' },
-    { key: 'Technology and Gadgets', value: 'technology-and-gadgets' },
-    { key: 'Business and Entrepreneurship', value: 'business-and-entrepreneurship' },
-    { key: 'Finance and Investing', value: 'finance-and-investing' },
-    { key: 'Education and Learning', value: 'education-and-learning' },
-    { key: 'Sports and Fitness', value: 'sports-and-fitness' },
-    { key: 'Entertainment and Pop Culture', value: 'entertainment-and-pop-culture' },
-    { key: 'News and Current Events', value: 'news-and-current-events' },
-    { key: 'Relationships and Dating', value: 'relationships-and-dating' },
-    { key: 'Parenting and Family', value: 'parenting-and-family' },
-    { key: 'DIY and Home Improvement', value: 'diy-and-home-improvement' },
-    { key: 'Environment and Sustainability', value: 'environment-and-sustainability' },
-    { key: 'Science and Technology', value: 'science-and-technology' },
-    { key: 'Art and Culture', value: 'art-and-culture' },
-    { key: 'Literature and Writing', value: 'literature-and-writing' },
-    { key: 'Philosophy and Spirituality', value: 'philosophy-and-spirituality' }
-  ];
+
+  blogFormFroup = new FormGroup({
+    title: new FormControl(''),
+    subtitle: new FormControl(''),
+    auther: new FormControl(''),
+    date: new FormControl(moment()),
+    thumbnail: new FormControl(''),
+    category: new FormControl(''),
+    content: new FormControl('')
+  });
+
+  onFileSelected(event:any){
+    this.file = event.target.files[0];
+    this._uploadService.uploadFile(this.file);
+  }
+
+  async onSubmit() {
+    const date = this.blogFormFroup.value.date?.format('MM/DD/YYYY')
+    const thumbnail = await this._uploadService.downloadUrl;
+    const requestBody = {
+      ...this.blogFormFroup.value, date, thumbnail
+    }
+
+    this.http.post('https://blogapibackend.netlify.app/posts', requestBody).subscribe();
+
+  }
+
+  onControlInput() {
+    if(this.myControlValue)
+      this.blogFormFroup.get('auther')?.setValue(this.myControlValue);
+    }
+    
+
+  get myControlValue() {
+    return this.blogFormFroup?.get('auther')?.value;
+  }
 }

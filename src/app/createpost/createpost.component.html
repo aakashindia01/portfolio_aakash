@@ -1,23 +1,23 @@
-<div class="flex flex-col items-center justify-center  p-2 mt-4">
+<form class="flex flex-col items-center justify-center  p-2 mt-4" [formGroup]="blogFormFroup" enctype="multipart/form-data" method="post">
     <mat-form-field class="w-full md:w-2/3 mt-4">
         <mat-label>Title of Blog Post</mat-label>
-        <input matInput #message maxlength="256" placeholder="Insert Title Here" required>
+        <input matInput #message maxlength="256" placeholder="Insert Title Here" formControlName="title" required>
         <mat-hint align="end">{{message.value.length}} / 100</mat-hint>
     </mat-form-field>
 
 
     <mat-form-field class="w-full md:w-2/3 mt-4">
         <mat-label>subtitle</mat-label>
-        <input matInput #message maxlength="256" placeholder="A Brief Description of the Topic">
+        <input matInput #message maxlength="256" placeholder="A Brief Description of the Topic" formControlName="subtitle">
         <mat-hint align="end">{{message.value.length}} / 150</mat-hint>
     </mat-form-field>
 
     <div class="w-full md:w-2/3 mt-5 flex flex-col md:flex-row justify-between">
         <div>
-            <mat-form-field class="w-full md:w-80">
+            <mat-form-field class="w-full md:w-80" >
                 <mat-label class="text-sm font-semibold">Auther Name</mat-label>
-                <input matInput type="text" [(ngModel)]="name">
-                <button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+                <input matInput type="text" formControlName="auther"  (input)="onControlInput()" required>
+                <button *ngIf="blogFormFroup.get('auther')?.value" matSuffix mat-icon-button aria-label="Clear" (click)="blogFormFroup.get('auther')?.setValue('')">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
@@ -26,7 +26,7 @@
 
         <mat-form-field class="w-full md:w-80">
             <mat-label class="text-sm font-semibold">Created on</mat-label>
-            <input matInput [matDatepicker]="dp" required>
+            <input matInput formControlName="date" [matDatepicker]="dp" required>
             <mat-hint>MMMM DD, YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
             <mat-datepicker #dp></mat-datepicker>
@@ -37,14 +37,17 @@
 
     <div class="mt-4 w-full md:w-2/3 flex flex-col">
         <label class="text-sm font-semibold" required>Upload thumbnail</label>
-        <input type="file" accept="image/*" required>
+        <input type="file" accept="image/*" name="uploaded_file" formControlName="thumbnail"  (change)="onFileSelected($event)" #fileUpload required>
+        <div *ngIf="percentage">
+        <div class="progress-bar" [style.width.%]="percentage"></div>
+    </div>
     </div>
     <div class="w-full md:w-2/3 flex">
         <mat-form-field class="mt-4 w-full md:w-80 mr-auto" appearance="fill">
             <mat-label>Select Blog Catagories</mat-label>
-            <mat-select required>
+            <mat-select formControlName="category" required>
                 <mat-option>--</mat-option>
-                <mat-option *ngFor="let blog of blogCategories" [value]="blog">
+                <mat-option *ngFor="let blog of blogCategories"  [value]="blog">
                     {{blog.key}}
                 </mat-option>
             </mat-select>
@@ -54,22 +57,28 @@
     </div>
     <div class="mt-4 w-full md:w-2/3">
         <div class="flex flex-row">
-            <label class="text-sm font-semibold" required>Content of Post</label>
+            <label class="text-sm font-semibold" >Content of Post</label>
             <mat-hint class="ml-auto">char count: {{content.length}} / 5000</mat-hint>
         </div>
 
-        <ckeditor class="" [(ngModel)]="htmlData" [config]="editorConfig" [readonly]="false" (change)="onChange($event)"
-            (contentDom)="onContentDom($event)" debounce="500">
+        <ckeditor [(ngModel)]="htmlData" 
+        [ngModelOptions]="{standalone: true}"
+        [config]="editorConfig"
+        #myckeditor="ngModel" 
+        name = myckeditor
+        [readonly]="false" 
+        (change)="onEditorChange($event)"
+        (ready)="onReady($event)"
+        (contentDom)="onContentDom($event)" 
+        debounce="500">
         </ckeditor>
-
+        <input type="hidden" formControlName="content" value="htmlData">
     </div>
 
     <div class="mt-4 flex w-full md:w-2/3">
         <div class="ml-auto">
-            <button mat-raised-button (click)="openDialog('0ms', '0ms')" color="warn">clear</button>
-            <button mat-raised-button class="ml-5" color="primary">Save</button>
+            <button mat-raised-button type="reset" (click)="openDialog('0ms', '0ms')" color="warn">clear</button>
+            <button mat-raised-button type="submit" class="ml-5" color="primary" (click)="onSubmit()" >Save</button>
         </div>
     </div>
-
-
-</div>
+</form>

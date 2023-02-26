@@ -14,7 +14,11 @@ export class BlogComponent implements OnInit {
   constructor(private httpClient: HttpClient, private sharedService: SharedService){
   }
   ngOnInit(): void {
-    this.httpClient.get("https://run.mocky.io/v3/89782f29-dd6a-4d52-a456-e7fe8f084f73").subscribe(
+    const options = {
+      withCredentials: true
+    };
+    
+    this.httpClient.get("https://blogapibackend.netlify.app/posts").subscribe(
       (data: any)=>{
         this.blogData = data;
       }
