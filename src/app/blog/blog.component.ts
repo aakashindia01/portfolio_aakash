@@ -22,7 +22,7 @@ export class BlogComponent implements OnInit {
     this.httpClient.get("https://blogapibackend.netlify.app/posts").subscribe(
       (data: any)=>{
         this.blogData = data;
-        //this.loading = false;
+        this.loading = false;
       }
     )
     this.isDarkEnable = this.sharedService.togleState;
