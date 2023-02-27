@@ -11,6 +11,7 @@ import { Post } from '../common/interface/post.interface';
 export class BlogComponent implements OnInit {
   blogData:Post[]=[];
   isDarkEnable = false;
+  loading = true
   constructor(private httpClient: HttpClient, private sharedService: SharedService){
   }
   ngOnInit(): void {
@@ -21,6 +22,7 @@ export class BlogComponent implements OnInit {
     this.httpClient.get("https://blogapibackend.netlify.app/posts").subscribe(
       (data: any)=>{
         this.blogData = data;
+        //this.loading = false;
       }
     )
     this.isDarkEnable = this.sharedService.togleState;

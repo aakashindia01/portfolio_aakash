@@ -1,4 +1,4 @@
-<ng-container *ngIf="post">
+<ng-container *ngIf="post && !loading">
 <div class="px-2 lg:px-14 mt-4">
 <h1 class="font-extrabold text-3xl">
     {{post.title}}
@@ -8,4 +8,8 @@
 <div [innerHTML]="htmlContent" class="mt-10"></div>
 </div>
 </ng-container>
+<ng-container *ngIf="loading">
+<app-loading></app-loading>
+</ng-container>
+
 

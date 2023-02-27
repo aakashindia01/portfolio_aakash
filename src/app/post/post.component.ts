@@ -11,6 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class PostComponent {
 
+  loading = true;
   post:Post | null = null;
   htmlContent:SafeHtml | undefined;
 
@@ -21,6 +22,7 @@ export class PostComponent {
       (data: any)=>{
         this.post = data;
         this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(data?.content);
+        this.loading = false;
       }
     )
   }

@@ -1,4 +1,4 @@
-<div class="container flex flex-wrap items-center justify-between mx-auto p-2">
+<div *ngIf="!loading" class="container flex flex-wrap items-center justify-between mx-auto p-2">
     <h4 class="text-center font-extrabold p-4 m-auto text-3xl">Brainstorm Blog</h4>
     <p class="text-base p-2 lg:px-28 text-center text-gray-500 sm:text-lg dark:text-gray-400">A platform for creative
         exploration, where thought-provoking ideas and unique perspectives are shared to inspire change and expand
@@ -16,3 +16,8 @@
         </ng-container>
     </div>
 </div>
+
+<ng-container *ngIf="loading">
+   <app-loading></app-loading>
+</ng-container>
+

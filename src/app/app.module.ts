@@ -38,6 +38,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { CreatepostComponent } from './createpost/createpost.component';
 import { ConfirmPopupComponent } from './common/components/confirm-popup/confirm-popup.component';
+import { LoadingComponent } from './common/components/loading/loading.component';
 
 
 const firebaseConfig = {
@@ -67,7 +68,8 @@ firebase.initializeApp(firebaseConfig);
     PageNotFoundComponent,
     PostComponent,
     CreatepostComponent,
-    ConfirmPopupComponent
+    ConfirmPopupComponent,
+    LoadingComponent
     ],
   imports: [
     BrowserModule,
